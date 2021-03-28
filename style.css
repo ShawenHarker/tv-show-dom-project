@@ -4,11 +4,16 @@
   margin: 0%;
 }
 
+.container {
+  width: 1080px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
 #root {
   display: flex;
-  flex-direction: row;
-  max-width: 1000px;
-  width: 80%;
+  flex-direction: column;
 }
 
 body {
@@ -32,4 +37,10 @@ h1 {
   max-width: 18rem;
   padding: 1em;
   margin: 1em;
+}
+
+.h3Tag,
+.h4Tag,
+.h4Tag2 {
+  text-align: center;
 }
