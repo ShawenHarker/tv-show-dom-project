@@ -1,6 +1,13 @@
 //You can edit ALL of the code here
-// const searchBar = document.getElementsByClassName('search-bar');
-// const input = document.querySelector('input');
+
+function search () {
+  const allEpisodesSearch = getAllEpisodes();
+  let TypeSearch = allEpisodesSearch.map((epi) => {
+    if (typeof 'string' === epi.name.indexOf('A-Z', 'a-z')) {
+      
+    }
+  })
+};
 
 function setup() {
   const allEpisodes = getAllEpisodes();

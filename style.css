@@ -21,7 +21,7 @@ body {
   min-width: 100%;
 }
 
-.search-bar > input {
+.search-bar-input {
   border: none;
   border-radius: 1em;
   width: 60%;
