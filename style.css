@@ -27,6 +27,12 @@ body {
   width: 60%;
   padding: .3em;
   cursor: pointer;
+  position: relative;
+}
+
+.material-icons {
+  position: absolute;
+  margin-left: auto;
 }
 
 #root {

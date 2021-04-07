@@ -1,18 +1,9 @@
 //You can edit ALL of the code here
-
-function search () {
-  const allEpisodesSearch = getAllEpisodes();
-  let TypeSearch = allEpisodesSearch.map((epi) => {
-    if (typeof 'string' === epi.name.indexOf('A-Z', 'a-z')) {
-      
-    }
-  })
-};
+const allEpisodes = getAllEpisodes();
+const root = document.getElementById('root');
+root.setAttribute('class', 'container');
 
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  const root = document.getElementById('root');
-  root.setAttribute('class', 'container');
   let makePageForEpisodes = allEpisodes.map((episode) => {
     // Create a div tag store all of my information in it, which I retrieved from the object in the episodes.js file. 
     let divTag = document.createElement('div'); 
@@ -42,8 +33,31 @@ function setup() {
     divTag.appendChild(h4Tag2);
     h4Tag2.innerHTML = episode.summary;
     h4Tag2.setAttribute('class', 'h4Tag2');
+    function search () {
+      let input = document.getElementsByClassName('search-bar-input').value;
+      input = input.toLowerCase();
+      let findCard = document.getElementsByClassName('card');
+
+      for (let i = 0; i < findCard.length; i++) {
+        if (findCard[i].innerHTML.toLowerCase().includes(input)) {
+          findCard[i];
+        }
+        else {
+          findCard[i].style.display="none";                 
+        }
+      }
+    }
   });
   console.log(root);
 }
+
+// function search () {
+//   let getSearch = document.getElementsByClassName('search-bar-input');
+//   let TypeSearch = allEpisodes.filter((episode) => {
+//     if (getSearch.includes(episode.name.indexOf('A-Z')) || getSearch.includes(episode.name.indexOf('a-z'))) {
+//       return setup(divTag);
+//     }
+//   })
+// };
 
 window.onload = setup;
