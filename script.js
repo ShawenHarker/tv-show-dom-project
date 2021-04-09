@@ -11,6 +11,19 @@ function searchBar (event) {
   }));
 }
 
+function selectMenu(episodes) {
+  const select = document.getElementById('selectID');
+  episodes.filter((episode) => {
+    const option = document.createElement('option');
+    option.textContent = `S0${episode.season}E0${episode.number} - ${episode.name}`;
+    select.appendChild(option);
+  })
+}
+
+function selectEpisode() {
+  selectMenu(allEpisodes);
+}
+
 // Creating a card that contains only one episode in the array of objects.
 function addEpisode(episode) {
   // Creating a div tag to be the holding div of the card that will be stored in the root div in my HTML.
@@ -61,6 +74,7 @@ function addEpisodeList (episodes) {
 // The functions takes the addEpisodeList with the parameter of allEpisodes and itirate through it and display it on the page. It links the seach bar function and the addEpisodeList function to have the page work in unison with one another as the search bar is set at a zero index.
 function setup () {
   addEpisodeList(allEpisodes);
+  selectEpisode();
   let search = document.getElementsByClassName("search-bar-input");
   search[0].addEventListener('input', searchBar); 
 };
