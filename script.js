@@ -11,17 +11,20 @@ function searchBar (event) {
   }));
 }
 
+// This function filters through the array of objects and print it to the select bar.
 function selectMenu(episodes) {
   const select = document.getElementById('selectID');
   episodes.filter((episode) => {
     const option = document.createElement('option');
-    option.textContent = `S0${episode.season}E0${episode.number} - ${episode.name}`;
+    option.innerHTML = `S0${episode.season}E0${episode.number} - ${episode.name}`;
     select.appendChild(option);
   })
 }
 
+// This function search for the input with the same value of the select bar and returns the the value.
 function selectEpisode() {
-  selectMenu(allEpisodes);
+  // allEpisodes.innerHTML = '';
+  selectMenu(allEpisodes.some((episode) => episode.name && episode.season && episode.number));
 }
 
 // Creating a card that contains only one episode in the array of objects.
