@@ -1,4 +1,11 @@
 //You can edit ALL of the code here
+// The functions takes the addEpisodeList with the parameter of allEpisodes and itirate through it and display it on the page. It links the seach bar function and the addEpisodeList function to have the page work in unison with one another as the search bar is set at a zero index.
+function setup () {
+  addEpisodeList(allEpisodes);
+  selectEpisode();
+  let search = document.getElementsByClassName("search-bar-input");
+  search[0].addEventListener('input', searchBar); 
+};
 
 // Created allEpisodes as a global scope to limit the rewriting of the same line of code.
 const allEpisodes = getAllEpisodes();
@@ -23,8 +30,12 @@ function selectMenu(episodes) {
 
 // This function search for the input with the same value of the select bar and returns the the value.
 function selectEpisode() {
-  // allEpisodes.innerHTML = '';
-  selectMenu(allEpisodes.some((episode) => episode.name && episode.season && episode.number));
+  const  getEpisode = selectMenu(allEpisodes);
+  getEpisode.addEventListener('change', function (episode) {
+    if (episode.name && episode.season && episode.number) {
+      return episode.name && episode.season && episode.number;
+    }
+  });
 }
 
 // Creating a card that contains only one episode in the array of objects.
@@ -73,13 +84,5 @@ function addEpisodeList (episodes) {
     addEpisode(episode); // draw one box for one episode.
   });
 }
-
-// The functions takes the addEpisodeList with the parameter of allEpisodes and itirate through it and display it on the page. It links the seach bar function and the addEpisodeList function to have the page work in unison with one another as the search bar is set at a zero index.
-function setup () {
-  addEpisodeList(allEpisodes);
-  selectEpisode();
-  let search = document.getElementsByClassName("search-bar-input");
-  search[0].addEventListener('input', searchBar); 
-};
 
 window.onload = setup;
