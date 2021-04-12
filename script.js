@@ -3,6 +3,7 @@
 function setup () {
   addEpisodeList(allEpisodes);
   selectMenu(allEpisodes);
+  getSelectID;
   let search = document.getElementsByClassName("search-bar-input");
   search[0].addEventListener('input', searchBar); 
 };
@@ -21,18 +22,26 @@ function searchBar (event) {
 // This function filters through the array of objects and print it to the select bar.
 const select = document.getElementById("selectID");
 function selectMenu(episodes) {
-  Object.values(episodes).filter((episode) => {
+  episodes.map((episode) => {
     const option = document.createElement('option');
     option.setAttribute('value', 'choose-episode');
     option.innerHTML = `S0${episode.season}E0${episode.number} - ${episode.name}`;
     select.appendChild(option);
   })
 }
-select.addEventListener("change", function () {
-  let getValue = Object.value(allEpisodes);
-  getValue.some((episode) => episode.name);
-  debugger;
-});
+
+let getSelectID = document.getElementById("selectID");
+ getSelectID.addEventListener('change', function (episodes) {
+   let findValue = getSelectID.find((episode) => episode[0]);
+   console.log(findValue);
+ }
+);
+
+// select.addEventListener("change", function () {
+//   let getValue = Object.value(allEpisodes);
+//   getValue.some((episode) => episode.name);
+//   debugger;
+// });
 
 // This function search for the input with the same value of the select bar and returns the the value.
 // function selectEpisode() {
