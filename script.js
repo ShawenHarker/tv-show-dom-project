@@ -2,7 +2,7 @@
 // The functions takes the addEpisodeList with the parameter of allEpisodes and itirate through it and display it on the page. It links the seach bar function and the addEpisodeList function to have the page work in unison with one another as the search bar is set at a zero index.
 function setup () {
   addEpisodeList(allEpisodes);
-  selectEpisode();
+  selectMenu(allEpisodes);
   let search = document.getElementsByClassName("search-bar-input");
   search[0].addEventListener('input', searchBar); 
 };
@@ -19,24 +19,30 @@ function searchBar (event) {
 }
 
 // This function filters through the array of objects and print it to the select bar.
+const select = document.getElementById("selectID");
 function selectMenu(episodes) {
-  const select = document.getElementById('selectID');
-  episodes.filter((episode) => {
+  Object.values(episodes).filter((episode) => {
     const option = document.createElement('option');
+    option.setAttribute('value', 'choose-episode');
     option.innerHTML = `S0${episode.season}E0${episode.number} - ${episode.name}`;
     select.appendChild(option);
   })
 }
+select.addEventListener("change", function () {
+  let getValue = Object.value(allEpisodes);
+  getValue.some((episode) => episode.name);
+  debugger;
+});
 
 // This function search for the input with the same value of the select bar and returns the the value.
-function selectEpisode() {
-  const  getEpisode = selectMenu(allEpisodes);
-  getEpisode.addEventListener('change', function (episode) {
-    if (episode.name && episode.season && episode.number) {
-      return episode.name && episode.season && episode.number;
-    }
-  });
-}
+// function selectEpisode() {
+//   const  getEpisode = selectMenu(allEpisodes);
+//   getEpisode.addEventListener('change', function (episode) {
+//     if (episode.name && episode.season && episode.number) {
+//       return episode.name && episode.season && episode.number;
+//     }
+//   });
+// }
 
 // Creating a card that contains only one episode in the array of objects.
 function addEpisode(episode) {
