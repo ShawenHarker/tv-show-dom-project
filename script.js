@@ -1,57 +1,69 @@
 //You can edit ALL of the code here
+// Created global variables to get a global scope on all variables not to rewrite the same line of code.
+const allEpisodes = getAllEpisodes();
+const displayEpisode = document.querySelector(".selectBar");
+let root = document.getElementById("root");
+const selectEpisodeButton = document.createElement("select");
+displayEpisode.appendChild(selectEpisodeButton);
+//______________________________________________________//
+
 // The functions takes the addEpisodeList with the parameter of allEpisodes and itirate through it and display it on the page. It links the seach bar function and the addEpisodeList function to have the page work in unison with one another as the search bar is set at a zero index.
 function setup () {
   addEpisodeList(allEpisodes);
   selectMenu(allEpisodes);
-  getSelectID;
   let search = document.getElementsByClassName("search-bar-input");
   search[0].addEventListener('input', searchBar); 
+  selectEpisodeButton.addEventListener("change", selectEpisode);
 };
-
-// Created allEpisodes as a global scope to limit the rewriting of the same line of code.
-const allEpisodes = getAllEpisodes();
+//_______________________________________________________//
 
 // In this function I'm creating a search event that filters through my array of objects via the allEpisode variable and convert everything to upper case as the keys fire via the event target value route, checking if the value inputted is the same as the value in the cards of the episode name or summary. 
 function searchBar (event) {
   addEpisodeList(allEpisodes.filter((episode) => {
     return episode.name.toUpperCase().includes(event.target.value.toUpperCase()) || episode.summary.toUpperCase().includes(event.target.value.toUpperCase())
-
   }));
 }
+//___________________________________________________________//
 
 // This function filters through the array of objects and print it to the select bar.
-const select = document.getElementById("selectID");
-function selectMenu(episodes) {
-  episodes.map((episode) => {
+function selectMenu(episodesArray) {
+  const option = document.createElement("option");
+  option.innerText = 'All';
+  selectEpisodeButton.appendChild(option);
+  episodesArray.forEach((episode) => {
     const option = document.createElement('option');
-    option.setAttribute('value', 'choose-episode');
-    option.innerHTML = `S0${episode.season}E0${episode.number} - ${episode.name}`;
-    select.appendChild(option);
+    option.innerText = `S0${episode.season}E0${episode.number} - ${episode.name}`;
+    selectEpisodeButton.appendChild(option);
   })
 }
 
-let getSelectID = document.getElementById("selectID");
- getSelectID.addEventListener('change', function (episodes) {
-   let findValue = getSelectID.find((episode) => episode[0]);
-   console.log(findValue);
- }
-);
+function selectEpisode(selectElement) {
+  let displayEpisode = selectElement.target.value;
+  if (displayEpisode === 'All') {
+    addEpisodeList(allEpisodes);
+  }
+  else {
+    let chooseEpisode = displayEpisode.substring(
+      displayEpisode.indexOf("-") + 2
+    );
+    let filteredEpisode = allEpisodes.filter(
+      (episode) => episode.name === chooseEpisode
+    );
+    addEpisodeList(filteredEpisode);
+  }
+}
+//_____________________________________________________//
 
-// select.addEventListener("change", function () {
-//   let getValue = Object.value(allEpisodes);
-//   getValue.some((episode) => episode.name);
-//   debugger;
-// });
-
-// This function search for the input with the same value of the select bar and returns the the value.
-// function selectEpisode() {
-//   const  getEpisode = selectMenu(allEpisodes);
-//   getEpisode.addEventListener('change', function (episode) {
-//     if (episode.name && episode.season && episode.number) {
-//       return episode.name && episode.season && episode.number;
-//     }
-//   });
-// }
+// This function takes the addEpisode function (card) and create each episode with a new card as it itirates through the array of objects and append it to the root div. It also clears the root div for every search done, it also displays how much episodes is being displayed on the page by checking the array as the search is being done. 
+function addEpisodeList (episodesArray) {
+  root.setAttribute('class', 'container');
+  root.innerHTML = ''; // clearing my container.
+  const totalEpisodes = allEpisodes.length;
+  root.innerHTML = `Displaying ${episodesArray.length} of ${totalEpisodes}`;
+  episodesArray.forEach((episode) => {
+    addEpisode(episode); // draw one box for one episode.
+  });
+}
 
 // Creating a card that contains only one episode in the array of objects.
 function addEpisode(episode) {
@@ -87,17 +99,6 @@ function addEpisode(episode) {
   h4Tag2.innerHTML = episode.summary;
   h4Tag2.setAttribute('class', 'h4Tag2');
 }
-
-// This function takes the addEpisode function (card) and create each episode with a new card as it itirates through the array of objects and append it to the root div. It also clears the root div for every search done, it also displays how much episodes is being displayed on the page by checking the array as the search is being done. 
-function addEpisodeList (episodes) {
-  const root = document.getElementById('root');
-  root.setAttribute('class', 'container');
-  root.innerHTML = ''; // clearing my container.
-  const totalEpisodes = allEpisodes.length;
-  root.innerHTML = `Displaying ${episodes.length} of ${totalEpisodes}`;
-  episodes.forEach(episode => {
-    addEpisode(episode); // draw one box for one episode.
-  });
-}
+//_______________________________________//
 
 window.onload = setup;
